@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Udemy Translator (EN-RU)",
+  "description": "Автоматический англо-русский переводчик расшифровки аудио лекций для образовательной платформы Udemy, основанный на API LibreTranslate.",
+  "version": "1.0",
+
+  "content_scripts": [{
+    "matches": ["https://www.udemy.com/course/*/learn/lecture/*"],
+    "js": ["translator/scripts.js"]
+  }],
+
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": "/logo/udemy-translator.png"
+  },
+
+  "icons": {
+    "256": "/logo/udemy-translator.png"
+  }
+}
