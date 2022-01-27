@@ -37,11 +37,11 @@ const translateSubtitles = () => {
 
   let chunks = [], chunk = [];
   for (let subtitle of actualizedSubtitles) {
-    const characters = subtitle.textContent +
+    const text = subtitle.textContent +
       chunk.map((el) => el.textContent).join("");
 
     if (
-      characters.length <= characterLimit &&
+      text.length <= characterLimit &&
       chunk.length <= chunkSize - 1
     ) {
       chunk.push(subtitle);
