@@ -1,43 +1,55 @@
 @import "https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap";
 
-* {
+*
+{
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0 auto
+    padding: 0 auto;
 }
 
-::-webkit-scrollbar {
-    width: 0
+::-webkit-scrollbar
+{
+    width: 0;
 }
 
-main {
+main
+{
     display: flex;
+
     width: 21rem;
     padding: .5rem;
-    grid-gap: .5rem
+
+    grid-gap: .5rem;
 }
 
 img,
-blockquote {
-    height: 6rem
+blockquote
+{
+    height: 6rem;
 }
 
-blockquote {
+blockquote
+{
     font-family: "Nunito", sans-serif;
     font-size: 1rem;
     line-height: 1rem;
+
     overflow-y: scroll;
-    overflow-wrap: break-word
+
+    overflow-wrap: break-word;
 }
 
-a {
-    text-decoration: none
+a
+{
+    text-decoration: none;
 }
 
-#udemy {
-    color: #eb5352
+#udemy
+{
+    color: #eb5352;
 }
 
-#libretranslate {
-    color: #4f80ff
+#libretranslate
+{
+    color: #4f80ff;
 }
