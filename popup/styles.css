@@ -7,11 +7,6 @@
     padding: 0 auto;
 }
 
-::-webkit-scrollbar
-{
-    width: 0;
-}
-
 main
 {
     display: flex;
@@ -20,6 +15,11 @@ main
     padding: .5rem;
 
     grid-gap: .5rem;
+}
+
+main::-webkit-scrollbar
+{
+    width: 0;
 }
 
 img,
