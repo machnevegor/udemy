@@ -21,7 +21,7 @@ const fetchChunk = (chunk) => {
   }).then(async (response) => {
     const { translatedText, error } = await response.json();
     translatedText
-      ? chunk.forEach((subtitle, i) => subtitle.innerText = translatedText[i])
+      ? chunk.forEach((el, x) => el.innerText = translatedText[x])
       : console.error("[LibreTranslate]", error);
   });
 };
@@ -35,7 +35,7 @@ const translateSubtitles = () => {
     ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
   ];
 
-  let chunk = [], chunkNumber = 0;
+  let chunks = [], chunk = [];
   for (let subtitle of actualizedSubtitles) {
     const characters = subtitle.textContent +
       chunk.map((el) => el.textContent).join("");
@@ -46,10 +46,14 @@ const translateSubtitles = () => {
     ) {
       chunk.push(subtitle);
     } else {
-      setTimeout(fetchChunk, chunkNumber * slowdown, chunk);
-      chunk = [subtitle], chunkNumber += 1;
+      chunks.push(chunk);
+      chunk = [subtitle];
     }
   }
+
+  [...chunks, chunk].forEach((el, i) =>
+    setTimeout(fetchChunk, i * slowdown, el)
+  );
 };
 
 let currentСourse;
