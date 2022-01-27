@@ -1,1 +1,43 @@
-@import "https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap";*{box-sizing:border-box;margin:0 auto;padding:0 auto}::-webkit-scrollbar{width:0}section{display:flex;width:21rem;padding:.5rem;grid-gap:.5rem}img,blockquote{height:6rem}blockquote{font-family:"Nunito",sans-serif;font-size:1rem;line-height:1rem;overflow-y:scroll;overflow-wrap:break-word}a{text-decoration:none}#udemy{color:#eb5352}#libretranslate{color:#4f80ff}
+@import "https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap";
+
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 auto
+}
+
+::-webkit-scrollbar {
+    width: 0
+}
+
+main {
+    display: flex;
+    width: 21rem;
+    padding: .5rem;
+    grid-gap: .5rem
+}
+
+img,
+blockquote {
+    height: 6rem
+}
+
+blockquote {
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+    overflow-y: scroll;
+    overflow-wrap: break-word
+}
+
+a {
+    text-decoration: none
+}
+
+#udemy {
+    color: #eb5352
+}
+
+#libretranslate {
+    color: #4f80ff
+}
