@@ -18,7 +18,7 @@ const fetchChunk = (chunk) => {
     const { translatedText, error } = await response.json();
     translatedText
       ? chunk.forEach((subtitle, x) => subtitle.innerText = translatedText[x])
-      : console.error("[Udemy-Translator]", error);
+      : console.error("[LibreTranslate]", error);
   });
 };
 
