@@ -11,7 +11,7 @@ const fetchChunk = (chunk) => {
   fetch(endpoint, {
     method: "POST",
     body: JSON.stringify({
-      q: chunk.map((subtitle) => subtitle.textContent),
+      q: chunk.map((el) => el.textContent),
       source: "en",
       target: "ru",
     }),
@@ -37,8 +37,8 @@ const translateSubtitles = () => {
 
   let chunk = [], chunkNumber = 0;
   for (let subtitle of actualizedSubtitles) {
-    const characters = subtitle.innerText +
-      chunk.map((subtitle) => subtitle.textContent).join("");
+    const characters = subtitle.textContent +
+      chunk.map((el) => el.textContent).join("");
 
     if (
       characters.length <= characterLimit &&
