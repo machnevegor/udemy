@@ -15,8 +15,10 @@ const fetchChunk = (chunk) => {
       "Content-Type": "application/json",
     },
   }).then(async (response) => {
-    const { translatedText } = await response.json();
-    chunk.forEach((subtitle, x) => subtitle.innerText = translatedText[x]);
+    const { translatedText, error } = await response.json();
+    translatedText
+      ? chunk.forEach((subtitle, x) => subtitle.innerText = translatedText[x])
+      : console.error("[Udemy-Translator]", error);
   });
 };
 
