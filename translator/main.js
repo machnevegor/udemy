@@ -5,7 +5,7 @@ const activeSubtitleSelector = "p[data-purpose='transcript-cue-active']";
 
 const chunkSize = 25;
 const characterLimit = 500;
-const cooldown = 3000;
+const slowdown = 3100;
 
 const fetchChunk = (chunk) => {
   fetch(endpoint, {
@@ -46,7 +46,7 @@ const translateSubtitles = () => {
     ) {
       chunk.push(subtitle);
     } else {
-      setTimeout(fetchChunk, chunkNumber * cooldown, chunk);
+      setTimeout(fetchChunk, chunkNumber * slowdown, chunk);
       chunk = [subtitle], chunkNumber += 1;
     }
   }
