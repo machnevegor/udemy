@@ -17,11 +17,6 @@ main
     grid-gap: .5rem;
 }
 
-main::-webkit-scrollbar
-{
-    width: 0;
-}
-
 img,
 blockquote
 {
@@ -37,6 +32,11 @@ blockquote
     overflow-y: scroll;
 
     overflow-wrap: break-word;
+}
+
+blockquote::-webkit-scrollbar
+{
+    width: 0;
 }
 
 a
