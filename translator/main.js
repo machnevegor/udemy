@@ -31,7 +31,7 @@ const translateSubtitles = () => {
 
   for (let i = 0; i < Math.ceil(actualizedSubtitles.length / 5); i++) {
     const chunk = actualizedSubtitles.slice(i * 5, i * 5 + 5);
-    setTimeout(fetchChunk, i * 3500, chunk);
+    setTimeout(fetchChunk, i * 4000, chunk);
   }
 };
 
