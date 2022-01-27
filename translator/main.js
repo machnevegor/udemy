@@ -2,8 +2,10 @@ const subtitleSelector = "span[data-purpose='cue-text']";
 const activeSubtitleSelector = "p[data-purpose='transcript-cue-active']";
 
 const endpoint = "https://libretranslate.de/translate";
-const chunkSize = 5;
-const cooldown = 4000;
+
+const chunkSize = 25;
+const characterLimit = 500;
+const cooldown = 3000;
 
 const fetchChunk = (chunk) => {
   fetch(endpoint, {
@@ -19,7 +21,7 @@ const fetchChunk = (chunk) => {
   }).then(async (response) => {
     const { translatedText, error } = await response.json();
     translatedText
-      ? chunk.forEach((subtitle, x) => subtitle.innerText = translatedText[x])
+      ? chunk.forEach((subtitle, i) => subtitle.innerText = translatedText[i])
       : console.error("[LibreTranslate]", error);
   });
 };
@@ -33,12 +35,20 @@ const translateSubtitles = () => {
     ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
   ];
 
-  for (let i = 0; i < Math.ceil(actualizedSubtitles.length / chunkSize); i++) {
-    const chunk = actualizedSubtitles.slice(
-      i * chunkSize,
-      i * chunkSize + chunkSize,
-    );
-    setTimeout(fetchChunk, i * cooldown, chunk);
+  let chunk = [], chunkNumber = 0;
+  for (let subtitle of actualizedSubtitles) {
+    const characters = subtitle.innerText +
+      chunk.map((subtitle) => subtitle.textContent).join("");
+
+    if (
+      characters.length <= characterLimit &&
+      chunk.length <= chunkSize - 1
+    ) {
+      chunk.push(subtitle);
+    } else {
+      setTimeout(fetchChunk, chunkNumber * cooldown, chunk);
+      chunk = [subtitle], chunkNumber += 1;
+    }
   }
 };
 
