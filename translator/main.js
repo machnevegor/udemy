@@ -1,7 +1,9 @@
-let currentСourse;
-const subtitleSelector = "span[data-purpose='cue-text']",
-  activeSubtitleSelector = "p[data-purpose='transcript-cue-active']",
-  endpoint = "https://libretranslate.de/translate";
+const subtitleSelector = "span[data-purpose='cue-text']";
+const activeSubtitleSelector = "p[data-purpose='transcript-cue-active']";
+
+const endpoint = "https://libretranslate.de/translate";
+const chunkSize = 5;
+const cooldown = 4000;
 
 const fetchChunk = (chunk) => {
   fetch(endpoint, {
@@ -31,12 +33,16 @@ const translateSubtitles = () => {
     ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
   ];
 
-  for (let i = 0; i < Math.ceil(actualizedSubtitles.length / 5); i++) {
-    const chunk = actualizedSubtitles.slice(i * 5, i * 5 + 5);
-    setTimeout(fetchChunk, i * 4000, chunk);
+  for (let i = 0; i < Math.ceil(actualizedSubtitles.length / chunkSize); i++) {
+    const chunk = actualizedSubtitles.slice(
+      i * chunkSize,
+      i * chunkSize + chunkSize,
+    );
+    setTimeout(fetchChunk, i * cooldown, chunk);
   }
 };
 
+let currentСourse;
 setInterval(() => {
   if (
     currentСourse != document.location.pathname &&
