@@ -1,4 +1,4 @@
-const endpoint = "https://libretranslate.de/translate/";
+const endpoint = "https://libretranslate.de/translate";
 
 const subtitleSelector = "span[data-purpose='cue-text']";
 const activeSubtitleSelector = "p[data-purpose='transcript-cue-active']";
