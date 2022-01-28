@@ -28,7 +28,8 @@ const fetchChunk = (chunk) => {
 
 const translateSubtitles = () => {
   const subtitles = Array.from(document.querySelectorAll(subtitleSelector));
-  const activeSubtitle = document.querySelector(activeSubtitleSelector);
+  const activeSubtitle = document.querySelector(activeSubtitleSelector)
+    .querySelector(subtitleSelector);
 
   const actualizedSubtitles = [
     ...subtitles.slice(subtitles.indexOf(activeSubtitle), subtitles.length),
