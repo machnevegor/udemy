@@ -1,7 +1,7 @@
 const endpoint = "https://libretranslate.de/translate";
 
 const subtitleSelector = "span[data-purpose='cue-text']";
-const activeSubtitleSelector = "p[data-purpose='transcript-cue-active']";
+const cursorSelector = "p[data-purpose='transcript-cue-active']";
 
 const chunkSize = 25;
 const characterLimit = 500;
@@ -27,13 +27,16 @@ const fetchChunk = (chunk) => {
 };
 
 const translateSubtitles = () => {
-  const subtitles = Array.from(document.querySelectorAll(subtitleSelector));
-  const activeSubtitle = document.querySelector(activeSubtitleSelector)
+  const subtitles = Array.from(
+    document.querySelectorAll(subtitleSelector),
+  );
+
+  const cursor = document.querySelector(cursorSelector)
     .querySelector(subtitleSelector);
 
   const actualizedSubtitles = [
-    ...subtitles.slice(subtitles.indexOf(activeSubtitle), subtitles.length),
-    ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
+    ...subtitles.slice(subtitles.indexOf(cursor), subtitles.length),
+    ...subtitles.slice(0, subtitles.indexOf(cursor)),
   ];
 
   let chunks = [], chunk = [];
@@ -61,7 +64,7 @@ let currentСourse;
 setInterval(() => {
   if (
     currentСourse != document.location.pathname &&
-    document.querySelector(activeSubtitleSelector)
+    document.querySelector(cursorSelector)
   ) {
     currentСourse = document.location.pathname;
     translateSubtitles();
