@@ -31,12 +31,12 @@ const translateSubtitles = () => {
     document.querySelectorAll(subtitleSelector),
   );
 
-  const cursor = document.querySelector(cursorSelector)
+  const activeSubtitle = document.querySelector(cursorSelector)
     .querySelector(subtitleSelector);
 
   const actualizedSubtitles = [
-    ...subtitles.slice(subtitles.indexOf(cursor), subtitles.length),
-    ...subtitles.slice(0, subtitles.indexOf(cursor)),
+    ...subtitles.slice(subtitles.indexOf(activeSubtitle), subtitles.length),
+    ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
   ];
 
   let chunks = [], chunk = [];
