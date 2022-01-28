@@ -9,9 +9,9 @@
   }],
   "action": {
     "default_popup": "/popup/index.html",
-    "default_icon": "/logo/udemy-translator.png"
+    "default_icon": "/public/logo.png"
   },
   "icons": {
-    "256": "/logo/udemy-translator.png"
+    "256": "/public/logo.png"
   }
 }
