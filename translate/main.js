@@ -5,7 +5,7 @@ const cursorSelector = "p[data-purpose='transcript-cue-active']";
 
 const chunkSize = 25;
 const characterLimit = 500;
-const slowdown = 3100;
+const slowdown = 4000;
 
 const fetchChunk = (chunk) => {
   fetch(endpoint, {

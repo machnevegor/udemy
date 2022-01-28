@@ -11,7 +11,7 @@ main
 {
     display: flex;
 
-    width: 21rem;
+    width: 19.5rem;
     padding: .5rem;
 
     grid-gap: .5rem;
@@ -27,15 +27,6 @@ blockquote
 {
     font-family: "Roboto", sans-serif;
     font-size: 1rem;
-
-    overflow-y: scroll;
-
-    overflow-wrap: break-word;
-}
-
-blockquote::-webkit-scrollbar
-{
-    width: 0;
 }
 
 a
