@@ -9,9 +9,9 @@
   }],
   "action": {
     "default_popup": "/popup/index.html",
-    "default_icon": "/public/logo.png"
+    "default_icon": "/public/icon.png"
   },
   "icons": {
-    "256": "/public/logo.png"
+    "256": "/public/icon.png"
   }
 }

@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 *
 {
@@ -25,9 +25,8 @@ blockquote
 
 blockquote
 {
-    font-family: "Nunito", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 1rem;
-    line-height: 1rem;
 
     overflow-y: scroll;
 
@@ -47,9 +46,4 @@ a
 #udemy
 {
     color: #eb5352;
-}
-
-#libretranslate
-{
-    color: #4f80ff;
 }
