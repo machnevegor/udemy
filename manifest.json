@@ -5,7 +5,7 @@
   "version": "1.2",
   "content_scripts": [{
     "matches": ["https://www.udemy.com/course/*/learn/lecture/*"],
-    "js": ["/translator/main.js"]
+    "js": ["/translate/main.js"]
   }],
   "action": {
     "default_popup": "/popup/index.html",
