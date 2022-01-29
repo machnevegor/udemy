@@ -11,16 +11,16 @@ main
 {
     display: flex;
 
-    width: 19.5rem;
-    padding: .5rem;
+    width: 19rem;
+    padding: .7rem;
 
-    grid-gap: .5rem;
+    grid-gap: .7rem;
 }
 
 img,
 blockquote
 {
-    height: 6rem;
+    height: 4.75rem;
 }
 
 blockquote
