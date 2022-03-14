@@ -7,23 +7,25 @@ const chunkSize = 25;
 const characterLimit = 500;
 const slowdown = 4000;
 
-const fetchChunk = (chunk) => {
-  fetch(endpoint, {
-    method: "POST",
-    body: JSON.stringify({
-      q: chunk.map((el) => el.textContent),
-      source: "en",
-      target: "ru",
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(async (response) => {
-    const { translatedText, error } = await response.json();
-    translatedText
-      ? chunk.forEach((el, x) => el.innerText = translatedText[x])
-      : console.error("[LibreTranslate]", error);
-  });
+const createRequest = (chunk) => ({
+  method: "POST",
+  body: JSON.stringify({
+    q: chunk.map((el) => el.textContent),
+    source: "en",
+    target: "ru",
+  }),
+  headers: { "Content-Type": "application/json" },
+});
+
+const fetchChunk = async (chunk) => {
+  await fetch(endpoint, createRequest(chunk))
+    .then(async (resp) => await resp.json())
+    .then(({ translatedText, error }) => {
+      translatedText
+        ? chunk.forEach((el, x) => (el.innerText = translatedText[x]))
+        : console.error("[LibreTranslate]", error);
+    })
+    .catch(console.error);
 };
 
 const translateSubtitles = () => {
@@ -31,7 +33,8 @@ const translateSubtitles = () => {
     document.querySelectorAll(subtitleSelector),
   );
 
-  const activeSubtitle = document.querySelector(cursorSelector)
+  const activeSubtitle = document
+    .querySelector(cursorSelector)
     .querySelector(subtitleSelector);
 
   const actualizedSubtitles = [
