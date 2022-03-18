@@ -25,7 +25,7 @@ const fetchChunk = async (chunk) => {
         ? chunk.forEach((el, x) => (el.innerText = translatedText[x]))
         : console.error("[LibreTranslate]", error);
     })
-    .catch(console.error);
+    .catch(() => null);
 };
 
 const translateSubtitles = () => {
