@@ -25,7 +25,9 @@ const fetchChunk = async (chunk) => {
         ? chunk.forEach((el, x) => (el.innerText = translatedText[x]))
         : console.error("[LibreTranslate]", error);
     })
-    .catch(() => null);
+    .catch(({ message }) => {
+      console.log("[UdemyTranslate]", message);
+    });
 };
 
 const translateSubtitles = () => {
