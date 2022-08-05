@@ -22,9 +22,7 @@ const fetchChunk = async (chunk) => {
   });
   const { translatedText } = await res.json();
   if (translatedText?.length === chunk.length) {
-    chunk.forEach((el, i) => {
-      el.innerText = translatedText[i];
-    });
+    chunk.forEach((el, i) => el.innerText = translatedText[i]);
   }
 };
 
@@ -59,9 +57,9 @@ const translate = () => {
     }
   }
 
-  [...chunks, chunk].forEach((el, i) => {
-    setTimeout(fetchChunk, i * SLOWDOWN, el);
-  });
+  [...chunks, chunk].forEach((el, i) =>
+    setTimeout(fetchChunk, i * SLOWDOWN, el)
+  );
 };
 
 let pathname;
