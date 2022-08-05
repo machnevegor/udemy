@@ -2,16 +2,16 @@
   "manifest_version": 3,
   "name": "Udemy Translate",
   "description": "🚀 Браузерное расширение, позволяющее переводить на русский расшифровку аудио Udemy.",
-  "version": "1.4",
+  "version": "1.5",
   "content_scripts": [{
     "matches": ["https://www.udemy.com/course/*/learn/lecture/*"],
     "js": ["/translate/main.js"]
   }],
   "action": {
     "default_popup": "/popup/index.html",
-    "default_icon": "/public/icon.png"
+    "default_icon": "/assets/icon.png"
   },
   "icons": {
-    "256": "/public/icon.png"
+    "256": "/assets/icon.png"
   }
 }

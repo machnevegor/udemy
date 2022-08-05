@@ -1,77 +1,75 @@
-const endpoint = "https://libretranslate.de/translate";
+const ENDPOINT = "https://libretranslate.de/translate";
 
-const subtitleSelector = "span[data-purpose='cue-text']";
-const cursorSelector = "p[data-purpose='transcript-cue-active']";
+const SUBTITLE_SELECTOR = "span[data-purpose='cue-text']";
+const CURSOR_SELECTOR = "p[data-purpose='transcript-cue-active']";
 
-const chunkSize = 25;
-const characterLimit = 500;
-const slowdown = 4000;
-
-const createRequest = (chunk) => ({
-  method: "POST",
-  body: JSON.stringify({
-    q: chunk.map((el) => el.textContent),
-    source: "en",
-    target: "ru",
-  }),
-  headers: { "Content-Type": "application/json" },
-});
+const CHUNK_LIMIT = 25;
+const CHARACTER_LIMIT = 500;
+const SLOWDOWN = 4000;
 
 const fetchChunk = async (chunk) => {
-  await fetch(endpoint, createRequest(chunk))
-    .then(async (resp) => await resp.json())
-    .then(({ translatedText, error }) => {
-      translatedText
-        ? chunk.forEach((el, x) => (el.innerText = translatedText[x]))
-        : console.error("[LibreTranslate]", error);
-    })
-    .catch(({ message }) => {
-      console.log("[UdemyTranslate]", message);
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      q: chunk.map((el) => el.textContent),
+      source: "en",
+      target: "ru",
+    }),
+  });
+  const { translatedText } = await res.json();
+  if (translatedText?.length === chunk.length) {
+    chunk.forEach((subtitle, i) => {
+      subtitle.innerText = translatedText[i];
     });
+  }
 };
 
-const translateSubtitles = () => {
+const translate = () => {
   const subtitles = Array.from(
-    document.querySelectorAll(subtitleSelector),
+    document.querySelectorAll(SUBTITLE_SELECTOR),
   );
 
-  const activeSubtitle = document
-    .querySelector(cursorSelector)
-    .querySelector(subtitleSelector);
+  const cursor = subtitles.indexOf(
+    document
+      .querySelector(CURSOR_SELECTOR)
+      .querySelector(SUBTITLE_SELECTOR),
+  );
 
-  const actualizedSubtitles = [
-    ...subtitles.slice(subtitles.indexOf(activeSubtitle), subtitles.length),
-    ...subtitles.slice(0, subtitles.indexOf(activeSubtitle)),
+  const sortedSubtitles = [
+    ...subtitles.slice(cursor, subtitles.length),
+    ...subtitles.slice(0, cursor),
   ];
 
-  let chunks = [], chunk = [];
-  for (let subtitle of actualizedSubtitles) {
-    const totalText = subtitle.textContent +
-      chunk.map((el) => el.textContent).join("");
-
+  let heap = "", chunks = [], chunk = [];
+  for (let subtitle of sortedSubtitles) {
+    heap += subtitle.textContent;
     if (
-      totalText.length <= characterLimit &&
-      chunk.length <= chunkSize - 1
+      chunk.length + 1 <= CHUNK_LIMIT &&
+      heap.length <= CHARACTER_LIMIT
     ) {
       chunk.push(subtitle);
     } else {
-      chunks.push(chunk);
-      chunk = [subtitle];
+      chunks.push(chunk), chunk = [subtitle];
+      heap = subtitle.textContent;
     }
   }
 
-  [...chunks, chunk].forEach((el, i) =>
-    setTimeout(fetchChunk, i * slowdown, el)
+  [...chunks, chunk].forEach((chunk, i) =>
+    setTimeout(fetchChunk, i * SLOWDOWN, chunk)
   );
 };
 
-let currentСourse;
+let pathname;
 setInterval(() => {
   if (
-    currentСourse != document.location.pathname &&
-    document.querySelector(cursorSelector)
+    pathname !== document.location.pathname &&
+    document.querySelector(CURSOR_SELECTOR)
   ) {
-    currentСourse = document.location.pathname;
-    translateSubtitles();
+    pathname = document.location.pathname;
+    translate();
   }
 }, 1000);
