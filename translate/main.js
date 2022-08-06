@@ -3,7 +3,7 @@ const ENDPOINT = "https://libretranslate.de/translate";
 const SUBTITLE_SELECTOR = "span[data-purpose='cue-text']";
 const CURSOR_SELECTOR = "p[data-purpose='transcript-cue-active']";
 
-const CHUNK_LIMIT = 25;
+const SUBTITLE_LIMIT = 25;
 const CHARACTER_LIMIT = 500;
 const SLOWDOWN = 4000;
 
@@ -20,6 +20,7 @@ const fetchChunk = async (chunk) => {
       target: "ru",
     }),
   });
+
   const { translatedText } = await res.json();
   if (translatedText?.length === chunk.length) {
     chunk.forEach((el, i) => el.innerText = translatedText[i]);
@@ -46,7 +47,7 @@ const translate = () => {
   for (let subtitle of sortedSubtitles) {
     heap += subtitle.textContent;
     if (
-      chunk.length + 1 <= CHUNK_LIMIT &&
+      chunk.length + 1 <= SUBTITLE_LIMIT &&
       heap.length <= CHARACTER_LIMIT
     ) {
       chunk.push(subtitle);
