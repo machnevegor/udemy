@@ -1,4 +1,4 @@
-const ENDPOINT = "https://libretranslate.de/translate";
+const ENDPOINT = "https://translate.terraprint.co/translate";
 
 const SUBTITLE_SELECTOR = "span[data-purpose='cue-text']";
 const CURSOR_SELECTOR = "p[data-purpose='transcript-cue-active']";
